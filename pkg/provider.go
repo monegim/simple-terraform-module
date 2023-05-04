@@ -17,7 +17,7 @@ func Provider() *schema.Provider {
 			},
 		},
 		ResourcesMap: map[string]*schema.Resource{
-			"simple_gin_book": resourceBooks(),
+			"simple_gin_book": resourceBook(),
 		},
 		DataSourcesMap: map[string]*schema.Resource{
 			"simple_gin_book": dataSourceBook(),
