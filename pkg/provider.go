@@ -27,6 +27,21 @@ func Provider() *schema.Provider {
 }
 
 func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}, diag.Diagnostics) {
-	// var host *string
-	return nil, nil
+	var host *string
+
+	hval, ok := d.GetOk("host")
+	if ok {
+		tempHost := hval.(string)
+		host = &tempHost
+	}
+	var diags diag.Diagnostics
+	c, err := NewClient(host)
+	if err != nil {
+		diags = append(diags, diag.Diagnostic{
+			Severity: diag.Error,
+			Summary:  "Unable to create client",
+		})
+		return nil, diags
+	}
+	return c, diags
 }
