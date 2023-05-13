@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -36,7 +37,7 @@ func (c *Client) doRequest(req *http.Request) ([]byte, error) {
 	}
 	defer res.Body.Close()
 
-	body, err := ioutil.ReadAll(req.Body)
+	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -60,4 +61,21 @@ func (c *Client) CreateBook(book Book) error {
 		return err
 	}
 	return nil
+}
+
+func (c *Client) GetBook(bookID int) (*Book, error) {
+	book := Book{}
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/books/%s", c.HostURL, strconv.Itoa(bookID)), nil)
+	if err != nil {
+		return nil, err
+	}
+	body, err := c.doRequest(req)
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(body, &book)
+	if err != nil {
+		return nil, err
+	}
+	return &book, nil
 }
