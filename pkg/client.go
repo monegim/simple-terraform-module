@@ -51,7 +51,11 @@ func (c *Client) CreateBook(book Book) error {
 	if err != nil {
 		return err
 	}
-	_, err = http.NewRequest("POST", fmt.Sprintf("%s/books", c.HostURL), strings.NewReader(string(b)))
+	req, err := http.NewRequest("POST", fmt.Sprintf("%s/books", c.HostURL), strings.NewReader(string(b)))
+	if err != nil {
+		return err
+	}
+	_, err = c.doRequest(req)
 	if err != nil {
 		return err
 	}
