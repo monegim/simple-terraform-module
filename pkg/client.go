@@ -1,9 +1,11 @@
 package pkg
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -42,4 +44,16 @@ func (c *Client) doRequest(req *http.Request) ([]byte, error) {
 		return nil, fmt.Errorf("status: %d, body: %s", res.StatusCode, body)
 	}
 	return body, err
+}
+
+func (c *Client) CreateBook(book Book) error {
+	b, err := json.Marshal(book)
+	if err != nil {
+		return err
+	}
+	_, err = http.NewRequest("POST", fmt.Sprintf("%s/books", c.HostURL), strings.NewReader(string(b)))
+	if err != nil {
+		return err
+	}
+	return nil
 }
