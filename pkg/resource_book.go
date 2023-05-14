@@ -20,7 +20,7 @@ func resourceBook() *schema.Resource {
 					Schema: map[string]*schema.Schema{
 						"id": &schema.Schema{
 							Type:     schema.TypeInt,
-							Optional: true,
+							Required: true,
 						},
 						"title": &schema.Schema{
 							Type: schema.TypeString,
@@ -39,7 +39,7 @@ func resourceBook() *schema.Resource {
 }
 
 func resourceBookCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	c := m.(Client)
+	c := m.(*Client)
 
 	var diags diag.Diagnostics
 	id := d.Get("id").(int)
@@ -61,3 +61,20 @@ func resourceBookCreate(ctx context.Context, d *schema.ResourceData, m interface
 	return diags
 }
 
+func resourceBookRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+	c := m.(*Client)
+
+	var diags diag.Diagnostics
+
+	bookID := d.Get("id").(int)
+
+	book, err := c.GetBook(bookID)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+	d.Set("id", book.ID)
+	d.Set("author", book.Author)
+	d.Set("title", book.Author)
+	d.Set("price", book.Price)
+	return diags
+}
