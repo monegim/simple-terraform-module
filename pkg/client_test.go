@@ -12,6 +12,7 @@ var c = Client{
 
 func TestCreateBook(t *testing.T) {
 	b := Book{
+		ID:     1,
 		Title:  "Atomic Habits",
 		Author: "Not Sure",
 		Price:  30000,
@@ -23,10 +24,18 @@ func TestCreateBook(t *testing.T) {
 }
 
 func TestGetBook(t *testing.T) {
-	id := 0
+	id := 1
 	book, err := c.GetBook(id)
 	if err != nil {
 		t.Log(err)
 	}
 	t.Logf("book is %v", book)
+}
+
+func TestDeleteBook(t *testing.T) {
+	id := 1
+	err := c.DeleteBook(id)
+	if err != nil {
+		t.Log(err)
+	}
 }
