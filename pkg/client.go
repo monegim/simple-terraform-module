@@ -79,3 +79,15 @@ func (c *Client) GetBook(bookID int) (*Book, error) {
 	}
 	return &book, nil
 }
+
+func (c *Client) DeleteBook(bookID int) error {
+	req, err := http.NewRequest("DELETE", fmt.Sprintf("%s/books/%s", c.HostURL, strconv.Itoa(bookID)), nil)
+	if err != nil {
+		return err
+	}
+	_, err = c.doRequest(req)
+	if err != nil {
+		return nil
+	}
+	return nil
+}
