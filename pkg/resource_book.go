@@ -10,19 +10,20 @@ import (
 func resourceBook() *schema.Resource {
 	return &schema.Resource{
 		CreateContext: resourceBookCreate,
-		Schema:        map[string]*schema.Schema{
+		ReadContext:   resourceBookRead,
+		Schema: map[string]*schema.Schema{
 			"book": &schema.Schema{
-				Type: schema.TypeList,
+				Type:     schema.TypeList,
 				MaxItems: 1,
 				Required: true,
 				Elem: schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"id": &schema.Schema{
-							Type: schema.TypeInt,
-							Required: true,
+							Type:     schema.TypeInt,
+							Optional: true,
 						},
 						"title": &schema.Schema{
-							Type: schema.TypeMap,
+							Type: schema.TypeString,
 						},
 						"author": &schema.Schema{
 							Type: schema.TypeString,
@@ -38,5 +39,25 @@ func resourceBook() *schema.Resource {
 }
 
 func resourceBookCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	return nil
+	c := m.(Client)
+
+	var diags diag.Diagnostics
+	id := d.Get("id").(int)
+	title := d.Get("title").(string)
+	author := d.Get("author").(string)
+	price := d.Get("price").(int)
+
+	b := Book{
+		ID:     id,
+		Title:  title,
+		Author: author,
+		Price:  price,
+	}
+	err := c.CreateBook(b)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+	resourceBookRead(ctx, d, m)
+	return diags
 }
+
