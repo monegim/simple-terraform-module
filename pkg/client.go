@@ -80,6 +80,21 @@ func (c *Client) GetBook(bookID int) (*Book, error) {
 	return &book, nil
 }
 
+func (c *Client) UpdateBook(bookId int, updatedBook Book) error {
+	b, err := json.Marshal(updatedBook)
+	if err != nil {
+		return err
+	}
+	req, err := http.NewRequest("PUT", fmt.Sprintf("%s/books/%s", c.HostURL, strconv.Itoa(bookId)), strings.NewReader(string(b)))
+	if err != nil {
+		return err
+	}
+	_, err = c.doRequest(req)
+	if err != nil {
+		return err
+	}
+	return nil
+}
 func (c *Client) DeleteBook(bookID int) error {
 	req, err := http.NewRequest("DELETE", fmt.Sprintf("%s/books/%s", c.HostURL, strconv.Itoa(bookID)), nil)
 	if err != nil {
