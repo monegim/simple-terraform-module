@@ -74,10 +74,7 @@ func resourceBookRead(ctx context.Context, d *schema.ResourceData, m interface{}
 	if err != nil {
 		return diag.FromErr(err)
 	}
-	d.Set("id", book.ID)
-	d.Set("author", book.Author)
-	d.Set("title", book.Author)
-	d.Set("price", book.Price)
+	setItems(d, *book)
 	return diags
 }
 
@@ -86,4 +83,11 @@ func resourceBookUpdate(ctx context.Context, d *schema.ResourceData, m interface
 }
 func resourceBookDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	return nil
+}
+
+func setItems(d *schema.ResourceData, book Book) {
+	d.Set("id", book.ID)
+	d.Set("author", book.Author)
+	d.Set("title", book.Author)
+	d.Set("price", book.Price)
 }
