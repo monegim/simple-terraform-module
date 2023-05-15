@@ -16,13 +16,16 @@ func dataSourceBook() *schema.Resource {
 				Required: true,
 			},
 			"title": &schema.Schema{
-				Type: schema.TypeString,
+				Type:     schema.TypeString,
+				Required: true,
 			},
 			"author": &schema.Schema{
-				Type: schema.TypeString,
+				Type:     schema.TypeString,
+				Required: true,
 			},
 			"price": &schema.Schema{
-				Type: schema.TypeInt,
+				Type:     schema.TypeInt,
+				Required: true,
 			},
 		},
 	}
