@@ -11,6 +11,8 @@ func resourceBook() *schema.Resource {
 	return &schema.Resource{
 		CreateContext: resourceBookCreate,
 		ReadContext:   resourceBookRead,
+		UpdateContext: resourceBookUpdate,
+		DeleteContext: resourceBookDelete,
 		Schema: map[string]*schema.Schema{
 			"book": &schema.Schema{
 				Type:     schema.TypeList,
@@ -77,4 +79,11 @@ func resourceBookRead(ctx context.Context, d *schema.ResourceData, m interface{}
 	d.Set("title", book.Author)
 	d.Set("price", book.Price)
 	return diags
+}
+
+func resourceBookUpdate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+	return nil
+}
+func resourceBookDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+	return nil
 }
