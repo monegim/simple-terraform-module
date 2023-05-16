@@ -21,8 +21,8 @@ func TestBookBasic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCheckBookConfigBasic(id, title, author, price),
-				Check:  resource.ComposeTestCheckFunc(
-					testAccCheckBookExists("simple_gin_book.atomic"),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckBookExists("simplegin_book.atomic"),
 				),
 			},
 		},
@@ -31,7 +31,7 @@ func TestBookBasic(t *testing.T) {
 
 func testAccCheckBookConfigBasic(bookId int, title, author string, price int) string {
 	return fmt.Sprintf(`
-	resource "simple_gin_book" "atomic" {
+	resource "simplegin_book" "atomic" {
 		id = %d
 		title = %s
 		author = %s

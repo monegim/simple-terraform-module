@@ -22,3 +22,9 @@ go.work
 
 # vscode
 .vscode
+
+# Terraform files
+.terraform
+*.tfstate
+.terraform.lock.hcl
+

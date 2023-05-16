@@ -13,14 +13,14 @@ func Provider() *schema.Provider {
 			"host": &schema.Schema{
 				Type:        schema.TypeString,
 				Optional:    true,
-				DefaultFunc: schema.EnvDefaultFunc("SIMPLE_GIN_HOST", "localhost:8080"),
+				DefaultFunc: schema.EnvDefaultFunc("simplegin_HOST", "localhost:8080"),
 			},
 		},
 		ResourcesMap: map[string]*schema.Resource{
-			"simple_gin_book": resourceBook(),
+			"simplegin_book": resourceBook(),
 		},
 		DataSourcesMap: map[string]*schema.Resource{
-			"simple_gin_book": dataSourceBook(),
+			"simplegin_book": dataSourceBook(),
 		},
 		ConfigureContextFunc: providerConfigure,
 	}

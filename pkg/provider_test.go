@@ -12,7 +12,7 @@ var testAccProvider *schema.Provider
 func init() {
 	testAccProvider = Provider()
 	testAccProviders = map[string]*schema.Provider{
-		"simple_gin": testAccProvider,
+		"simplegin": testAccProvider,
 	}
 }
 
