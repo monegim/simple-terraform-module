@@ -9,10 +9,10 @@ var c = Client{
 	HostURL:    "http://localhost:8080",
 	HTTPClient: &http.Client{},
 }
-var id = 1
+var bookID = 1
+
 func TestCreateBook(t *testing.T) {
 	b := Book{
-		ID:     id,
 		Title:  "Atomic Habits",
 		Author: "Not Sure",
 		Price:  30000,
@@ -24,7 +24,7 @@ func TestCreateBook(t *testing.T) {
 }
 
 func TestGetBook(t *testing.T) {
-	book, err := c.GetBook(id)
+	book, err := c.GetBook(bookID)
 	if err != nil {
 		t.Log(err)
 	}
@@ -32,7 +32,7 @@ func TestGetBook(t *testing.T) {
 }
 
 func TestDeleteBook(t *testing.T) {
-	err := c.DeleteBook(id)
+	err := c.DeleteBook(bookID)
 	if err != nil {
 		t.Log(err)
 	}
@@ -40,12 +40,11 @@ func TestDeleteBook(t *testing.T) {
 
 func TestUpdateBook(t *testing.T) {
 	ub := Book{
-		ID:     id,
 		Title:  "About Mostafa",
 		Author: "Mostafa",
 		Price:  50000,
 	}
-	err := c.UpdateBook(id, ub)
+	err := c.UpdateBook(bookID, ub)
 	if err != nil {
 		t.Log(err)
 	}
