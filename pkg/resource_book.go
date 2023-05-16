@@ -18,7 +18,7 @@ func resourceBook() *schema.Resource {
 				Type:     schema.TypeList,
 				MaxItems: 1,
 				Required: true,
-				Elem: schema.Resource{
+				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"id": &schema.Schema{
 							Type:     schema.TypeInt,
@@ -26,12 +26,15 @@ func resourceBook() *schema.Resource {
 						},
 						"title": &schema.Schema{
 							Type: schema.TypeString,
+							Required: true,
 						},
 						"author": &schema.Schema{
 							Type: schema.TypeString,
+							Required: true,
 						},
 						"price": &schema.Schema{
 							Type: schema.TypeInt,
+							Required: true,
 						},
 					},
 				},
