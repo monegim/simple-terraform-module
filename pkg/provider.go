@@ -13,7 +13,7 @@ func Provider() *schema.Provider {
 			"host": &schema.Schema{
 				Type:        schema.TypeString,
 				Optional:    true,
-				DefaultFunc: schema.EnvDefaultFunc("simplegin_HOST", "localhost:8080"),
+				DefaultFunc: schema.EnvDefaultFunc("simplegin_HOST", "http://localhost:8080"),
 			},
 		},
 		ResourcesMap: map[string]*schema.Resource{
